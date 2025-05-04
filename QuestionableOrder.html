@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionable Order - Dinner Party Games.social</title>
+    <link rel="icon" type="image/png" href="assets/icon+logo/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/icon+logo/logo.png" alt="Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-btn">Home</a></li>
+                    <li><a href="games.html" class="nav-btn">Games</a></li>
+                    <li><a href="about.html" class="nav-btn">About Us</a></li>
+                    <li><a href="contact.html" class="nav-btn">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Questionable Order Game Section -->
+    <section class="welcome-section" id="questionable-order-game">
+        <div class="container" id="game-container" style="background-image: url('assets/index/questionable_order_hover.png'); background-size: cover; background-position: center;">
+            <!-- Initial Buttons -->
+            <div id="initial-buttons" class="initial-buttons-container">
+                <a href="#" class="btn play-btn">Play Questionable Order</a>
+            </div>
+
+            <!-- Category Selection Screen -->
+            <div id="category-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">Choose a Category</h2>
+                    <div class="category-buttons">
+                        <button class="category-btn" data-category="family">Family Friendly</button>
+                        <button class="category-btn" data-category="spicy">Spicy</button>
+                        <button class="category-btn" data-category="weird">Weird</button>
+                        <button class="category-btn" data-category="vicious">Vicious</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Master Screen -->
+            <div id="order-master-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">Order Master</h2>
+                    <p class="game-instruction">Select a prompt</p>
+                    <div class="button-group">
+                        <button id="choose-prompt-btn" class="questionable-btn">Choose Prompt</button>
+                        <button id="shuffle-btn" class="questionable-btn">Shuffle</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ranking Screen -->
+            <div id="ranking-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">Order Master</h2>
+                    <p class="game-instruction">Rank everyone's IDs in the most logical order according to the prompt</p>
+                    <button id="next-btn" class="questionable-btn">Next</button>
+                </div>
+            </div>
+
+            <!-- Guessing Screen -->
+            <div id="guessing-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">Players</h2>
+                    <p class="game-instruction">Which prompt did the order master choose?</p>
+                    <div id="prompts-container" class="prompts-grid"></div>
+                    <p id="attempts-left" class="game-instruction">Attempts left: 3</p>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 id="result-title" class="game-title"></h2>
+                    <p id="result-message" class="game-instruction"></p>
+                    <button id="play-again-btn" class="questionable-btn">Play Again</button>
+                </div>
+            </div>
+
+            <!-- Home Icon -->
+            <img src="assets/home_icon.png" id="home-icon" alt="Home" style="position: fixed; bottom: 20px; left: 20px; width: 40px; cursor: pointer; display: none;" />
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Logo Section -->
+                <div class="footer-section">
+                    <a href="#" class="footer-logo">
+                        <img src="assets/index/icon_white_background.png" alt="Dinner Party Games.social Logo">
+                    </a>
+                </div>
+                
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Game Rules</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Follow Us Section -->
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Stay Updated Section -->
+                <div class="footer-section">
+                    <h4>Stay Updated</h4>
+                    <ul>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                        <li><a href="#">Game Updates</a></li>
+                        <li><a href="#">Event News</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    &copy; 2024 Dinner Party Games. All rights reserved.
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="questionableOrder.js"></script>
+</body>
+</html> 

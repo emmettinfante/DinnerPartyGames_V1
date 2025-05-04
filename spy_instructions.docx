@@ -1,0 +1,502 @@
+I want to keep the same style, using a header and footer, followed by a large container of the spy game. This game should show a question  mark icon at the top, which when hovered / clicled, will show a paragraph of the rules.
+
+The game itself will have the first screen that lets you pick the category you want. Then, an input of the player count, followed by a start button, which then flashes screens for each of the players (i will make a very cool spy icon or not spy icon). then the reset / finish screen.
+
+All the game logic, categories will follow the attached index file, but with the themes of my new site
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sexy Emmett Spy Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .setup-screen, .player-turn-screen, .role-reveal-screen, .ready-screen, .category-screen {
+            margin-top: 30px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .player-number {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .number-selector {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .number-selector button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-image: linear-gradient(to bottom, #5bc0de, #0275d8);
+        }
+        
+        .number-selector button:hover {
+            background-image: linear-gradient(to bottom, #4db0ce, #0265c8);
+        }
+        
+        .category-selector {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-button {
+            width: 80%;
+            padding: 15px;
+            font-size: 18px;
+            background-image: linear-gradient(to bottom, #ff9966, #ff5e62);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-button:hover {
+            transform: scale(1.05);
+            background-image: linear-gradient(to bottom, #ff8866, #ff4e52);
+        }
+        
+        .category-emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .spy-role {
+            background-color: #ff0000;
+            color: white;
+            padding: 50px;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+        
+        .country-role {
+            background-color: #4CAF50;
+            color: white;
+            padding: 50px;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+        
+        .info-text {
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .ready-message {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 30px 0;
+        }
+        
+        .game-logo {
+            max-width: 300px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .ready-screen button {
+            background-color: #ffcc00;
+        }
+        
+        .home-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            padding: 10px;
+            margin: 0;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .home-button img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .header-container {
+            position: relative;
+        }
+
+        .role-reveal-screen button.yellow-button {
+            background-color: #0000FF;
+        }
+        
+        .current-category {
+            font-weight: bold;
+            color: #0275d8;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1>Emmett's Spy Game</h1>
+        <button class="home-button" onclick="resetGame()">
+            <img src="home.png" alt="Home" text = "return Home">
+        </button>
+    </div>
+    
+    <!-- Category Selection Screen -->
+    <div class="category-screen" id="categoryScreen">
+        <img src="Margot.png" alt="Margot" class="game-logo">
+        <h2>Choose a Category</h2>
+        <div class="category-selector">
+            <button class="category-button" onclick="selectCategory('countries')">
+                <span class="category-emoji">🌎</span> Countries
+            </button>
+            <button class="category-button" onclick="selectCategory('celebrities')">
+                <span class="category-emoji">🌟</span> Celebrities
+            </button>
+            <button class="category-button" onclick="selectCategory('brands')">
+                <span class="category-emoji">🛍️</span> Brands
+            </button>
+            <button class="category-button" onclick="selectCategory('shows')">
+                <span class="category-emoji">📺</span> TV Shows
+            </button>
+            <button class="category-button" onclick="selectCategory('animals')">
+                <span class="category-emoji">🦁</span> Animals
+            </button>
+        </div>
+    </div>
+    
+    <!-- Setup Screen -->
+    <div class="setup-screen hidden" id="setupScreen">
+        <img src="Margot.png" alt="Margot" class="game-logo">
+        <h2>How many players?</h2>
+        <div class="current-category" id="currentCategory"></div>
+        <div class="number-selector">
+            <button onclick="setPlayers(3)">3</button>
+            <button onclick="setPlayers(4)">4</button>
+            <button onclick="setPlayers(5)">5</button>
+            <button onclick="setPlayers(6)">6</button>
+            <button onclick="setPlayers(7)">7</button>
+            <button onclick="setPlayers(8)">8</button>
+            <button onclick="setPlayers(9)">9</button>
+            <button onclick="setPlayers(10)">10</button>
+            <button onclick="setPlayers(11)">11</button>
+            <button onclick="setPlayers(12)">12</button>
+        </div>
+        <div id="playerInfo" class="info-text"></div>
+        <button id="startGameBtn" onclick="startGame()">Start Game</button>
+        <button onclick="backToCategories()">Change Category</button>
+    </div>
+    
+    <!-- Player Turn Screen -->
+    <div class="player-turn-screen hidden" id="playerTurnScreen">
+        <h2>Pass the device to:</h2>
+        <div class="player-number" id="playerNumber">Player 1</div>
+        <button onclick="showRole()">Show My Role</button>
+    </div>
+    
+    <!-- Role Reveal Screen -->
+    <div class="role-reveal-screen hidden" id="roleRevealScreen">
+        <h2>Your Role</h2>
+        <div id="roleDisplay"></div>
+        <button id="nextPlayerBtn" onclick="nextPlayer()">Next Player</button>
+        <button id="finishGameBtn" class="yellow-button" onclick="showReadyScreen()">Everyone Has Seen Their Role</button>
+    </div>
+    
+    <!-- Ready to Play Screen -->
+    <div class="ready-screen hidden" id="readyScreen">
+        <div class="ready-message">Ready to Play!</div>
+        <button onclick="resetGame()" class="yellow-button">Start New Game</button>
+    </div>
+
+
+    <script>
+        // Country list
+        const countries = [
+            "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", 
+            "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", 
+            "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", 
+            "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", 
+            "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", 
+            "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", 
+            "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", 
+            "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", 
+            "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", 
+            "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", 
+            "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", 
+            "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", 
+            "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", 
+            "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", 
+            "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", 
+            "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", 
+            "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", 
+            "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", 
+            "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", 
+            "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", 
+            "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", 
+            "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", 
+            "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", 
+            "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", 
+            "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+            "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", 
+            "Yemen", "Zambia", "Zimbabwe"
+        ];
+
+        // Celebrities list (based on famous people)
+        const celebrities = [
+            "Tom Hanks", "Morgan Freeman", "Keanu Reeves", "Dwayne Johnson", "Jackie Chan",
+            "Will Smith", "Samuel L. Jackson", "Robert Downey Jr.", "Leonardo DiCaprio", "Johnny Depp",
+            "Denzel Washington", "Harrison Ford", "Michael Jordan", "Tom Cruise", "Bruce Willis",
+            "Brad Pitt", "Julia Roberts", "Angelina Jolie", "Jennifer Lawrence", "Emma Watson",
+            "Scarlett Johansson", "Meryl Streep", "Sandra Bullock", "Jennifer Aniston", "Oprah Winfrey",
+            "Taylor Swift", "Beyoncé", "Lady Gaga", "Adele", "Rihanna",
+            "Justin Bieber", "Ed Sheeran", "Drake", "Ariana Grande", "Katy Perry",
+            "LeBron James", "Serena Williams", "Cristiano Ronaldo", "Lionel Messi", "Usain Bolt",
+            "Roger Federer", "Tiger Woods", "Stephen Curry", "Simone Biles", "Naomi Osaka",
+            "Bill Gates", "Elon Musk", "Mark Zuckerberg", "Steve Jobs", "Jeff Bezos"
+        ];
+
+        // Brands list
+        const brands = [
+            "Apple", "Google", "Amazon", "Microsoft", "Samsung",
+            "Coca-Cola", "Nike", "Disney", "Netflix", "Spotify",
+            "McDonald's", "Starbucks", "LEGO", "Adidas", "Toyota",
+            "PlayStation", "Nintendo", "Tesla", "IKEA", "Walmart",
+            "Visa", "PayPal", "Instagram", "YouTube", "Facebook",
+            "Twitter", "TikTok", "Snapchat", "Pinterest", "LinkedIn",
+            "BMW", "Mercedes-Benz", "Audi", "Ferrari", "Porsche",
+            "Rolex", "Gucci", "Louis Vuitton", "Chanel", "Nike",
+            "Pepsi", "Red Bull", "KFC", "Subway", "Burger King",
+            "H&M", "Zara", "Uniqlo", "The North Face", "Lululemon"
+        ];
+
+        // TV Shows list
+        const shows = [
+            "Breaking Bad", "Game of Thrones", "The Wire", "The Sopranos", "Friends",
+            "Stranger Things", "The Office", "The Crown", "The Mandalorian", "Sherlock",
+            "Black Mirror", "Succession", "Westworld", "Better Call Saul", "The Queen's Gambit",
+            "Chernobyl", "The Boys", "Ozark", "Money Heist", "Narcos",
+            "The Walking Dead", "Dexter", "House of Cards", "Fargo", "Dark",
+            "Seinfeld", "The Big Bang Theory", "How I Met Your Mother", "Parks and Recreation", "Brooklyn Nine-Nine",
+            "True Detective", "Mindhunter", "The Witcher", "Lost", "Mad Men",
+            "The Handmaid's Tale", "Peaky Blinders", "This Is Us", "Fleabag", "Ted Lasso",
+            "The Good Place", "Modern Family", "Schitt's Creek", "WandaVision", "Squid Game",
+            "Yellowstone", "Euphoria", "The Last of Us", "Wednesday", "Bridgerton"
+        ];
+
+        // Animals list
+        const animals = [
+            "Lion", "Tiger", "Elephant", "Giraffe", "Zebra",
+            "Panda", "Koala", "Kangaroo", "Dolphin", "Whale",
+            "Shark", "Octopus", "Eagle", "Penguin", "Flamingo",
+            "Wolf", "Fox", "Bear", "Deer", "Rabbit",
+            "Monkey", "Gorilla", "Chimpanzee", "Sloth", "Orangutan",
+            "Crocodile", "Alligator", "Snake", "Lizard", "Turtle",
+            "Butterfly", "Bee", "Ant", "Spider", "Scorpion",
+            "Horse", "Cow", "Sheep", "Goat", "Pig",
+            "Dog", "Cat", "Hamster", "Guinea Pig", "Rabbit",
+            "Owl", "Parrot", "Hummingbird", "Peacock", "Swan",
+            "Hippopotamus", "Rhinoceros", "Leopard", "Cheetah", "Jaguar",
+            "Squirrel", "Hedgehog", "Platypus", "Beaver", "Otter",
+            "Bat", "Ostrich", "Frog", "Toad", "Seal",
+            "Walrus", "Polar Bear", "Camel", "Llama", "Alpaca",
+            "Bison", "Buffalo", "Elk", "Moose", "Hyena",
+            "Meerkat", "Raccoon", "Skunk", "Armadillo", "Porcupine",
+            "Lemur", "Wombat", "Tasmanian Devil", "Komodo Dragon", "Chameleon",
+            "Iguana", "Mantis", "Lobster", "Crab", "Jellyfish",
+            "Clownfish", "Starfish", "Seahorse", "Pelican", "Toucan"
+        ];
+
+        let numPlayers = 0;
+        let numSpies = 0;
+        let currentPlayer = 1;
+        let players = [];
+        let selectedItem = "";
+        let currentCategory = "";
+        let categoryData = [];
+
+        function selectCategory(category) {
+            currentCategory = category;
+            
+            // Set the category data based on selection
+            switch(category) {
+                case 'countries':
+                    categoryData = countries;
+                    document.getElementById('currentCategory').textContent = "Category: 🌎 Countries";
+                    break;
+                case 'celebrities':
+                    categoryData = celebrities;
+                    document.getElementById('currentCategory').textContent = "Category: 🌟 Celebrities";
+                    break;
+                case 'brands':
+                    categoryData = brands;
+                    document.getElementById('currentCategory').textContent = "Category: 🛍️ Brands";
+                    break;
+                case 'shows':
+                    categoryData = shows;
+                    document.getElementById('currentCategory').textContent = "Category: 📺 TV Shows";
+                    break;
+                case 'animals':
+                    categoryData = animals;
+                    document.getElementById('currentCategory').textContent = "Category: 🦁 Animals";
+                    break;
+            }
+            
+            // Move to player number selection
+            document.getElementById('categoryScreen').classList.add('hidden');
+            document.getElementById('setupScreen').classList.remove('hidden');
+        }
+
+        function backToCategories() {
+            document.getElementById('setupScreen').classList.add('hidden');
+            document.getElementById('categoryScreen').classList.remove('hidden');
+        }
+
+        function setPlayers(num) {
+            numPlayers = num;
+            
+            // Set number of spies based on player count
+            if (num >= 10) {
+                numSpies = 4;
+            } else if (num >= 8) {
+                numSpies = 3;
+            } else if (num >= 5) {
+                numSpies = 2;
+            } else {
+                numSpies = 1;
+            }
+            
+            document.getElementById('playerInfo').textContent = 
+                `Players: ${numPlayers} | Spies: ${numSpies}`;
+        }
+
+        function startGame() {
+            if (numPlayers === 0) {
+                alert("Please select the number of players");
+                return;
+            }
+            
+            // Select a random item from the current category
+            selectedItem = categoryData[Math.floor(Math.random() * categoryData.length)];
+            
+            // Assign roles to players
+            players = Array(numPlayers).fill("regular");
+            
+            // Randomly assign spy roles
+            let spiesAssigned = 0;
+            while (spiesAssigned < numSpies) {
+                const randomIndex = Math.floor(Math.random() * numPlayers);
+                if (players[randomIndex] === "regular") {
+                    players[randomIndex] = "spy";
+                    spiesAssigned++;
+                }
+            }
+            
+            // Start the game with player 1
+            currentPlayer = 1;
+            
+            // Show player turn screen
+            document.getElementById('setupScreen').classList.add('hidden');
+            document.getElementById('playerTurnScreen').classList.remove('hidden');
+            document.getElementById('playerNumber').textContent = `Player ${currentPlayer}`;
+        }
+
+        function showRole() {
+            const playerRole = players[currentPlayer - 1];
+            const roleDisplay = document.getElementById('roleDisplay');
+            
+            if (playerRole === "spy") {
+                roleDisplay.innerHTML = `<div class="spy-role">YOU ARE A SPY</div>`;
+            } else {
+                roleDisplay.innerHTML = `<div class="country-role">${selectedItem}</div>`;
+            }
+            
+            document.getElementById('playerTurnScreen').classList.add('hidden');
+            document.getElementById('roleRevealScreen').classList.remove('hidden');
+            
+            // Show finish button if this is the last player
+            if (currentPlayer === numPlayers) {
+                document.getElementById('nextPlayerBtn').classList.add('hidden');
+                document.getElementById('finishGameBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('nextPlayerBtn').classList.remove('hidden');
+                document.getElementById('finishGameBtn').classList.add('hidden');
+            }
+        }
+
+        function nextPlayer() {
+            currentPlayer++;
+            
+            document.getElementById('roleRevealScreen').classList.add('hidden');
+            document.getElementById('playerTurnScreen').classList.remove('hidden');
+            document.getElementById('playerNumber').textContent = `Player ${currentPlayer}`;
+        }
+        
+        function showReadyScreen() {
+            document.getElementById('roleRevealScreen').classList.add('hidden');
+            document.getElementById('readyScreen').classList.remove('hidden');
+        }
+
+        function resetGame() {
+            // Hide all screens except category screen
+            document.getElementById('roleRevealScreen').classList.add('hidden');
+            document.getElementById('readyScreen').classList.add('hidden');
+            document.getElementById('playerTurnScreen').classList.add('hidden');
+            document.getElementById('setupScreen').classList.add('hidden');
+            document.getElementById('categoryScreen').classList.remove('hidden');
+            
+            // Reset game state
+            numPlayers = 0;
+            numSpies = 0;
+            document.getElementById('playerInfo').textContent = '';
+        }
+    </script>
+</body>
+</html>
+
+
+
+Make sure to keep the same theme / pops of color as before - also the same hover effects

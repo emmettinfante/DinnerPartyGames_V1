@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spy Game - Dinner Party Games.social</title>
+    <link rel="icon" type="image/png" href="assets/icon+logo/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+          <div class="logo">
+              <a href="index.html">
+                  <img src="assets/icon+logo/logo.png" alt="Logo">
+              </a>
+          </div>
+          <nav>
+              <ul>
+                  <li><a href="index.html" class="nav-btn">Home</a></li>
+                  <li><a href="games.html" class="nav-btn active">Games</a></li>
+                  <li><a href="about.html" class="nav-btn">About Us</a></li>
+                  <li><a href="contact.html" class="nav-btn">Contact</a></li>
+              </ul>
+          </nav>
+      </div>
+  </header>
+
+    <!-- Spy Game Section -->
+    <section class="welcome-section" id="spy-game">
+        <div class="container" id="game-container" style="background-image: url('assets/index/spy_hover.png'); background-size: cover; background-position: center;">
+            <!-- Initial Buttons -->
+            <div id="initial-buttons" class="initial-buttons-container">
+                <a href="#" class="btn play-btn">Play Spy</a>
+            </div>
+
+            <!-- Setup Screen -->
+            <div id="setup-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">Game Setup</h2>
+                    
+                    <div class="setup-section">
+                        <h2 class="game-instruction">Select Number of Players</h2>
+                        <div id="player-count-options" class="button-group">
+                            <button class="spy-btn player-count-btn" data-count="3">3</button>
+                            <button class="spy-btn player-count-btn" data-count="4">4</button>
+                            <button class="spy-btn player-count-btn" data-count="5">5</button>
+                            <button class="spy-btn player-count-btn" data-count="6">6</button>
+                            <button class="spy-btn player-count-btn" data-count="7">7</button>
+                            <button class="spy-btn player-count-btn" data-count="8">8</button>
+                            <button class="spy-btn player-count-btn" data-count="9">9</button>
+                            <button class="spy-btn player-count-btn" data-count="10">10</button>
+                            <button class="spy-btn player-count-btn" data-count="11">11</button>
+                            <button class="spy-btn player-count-btn" data-count="12">12</button>
+                        </div>
+                        <div id="spy-count-display" class="game-instruction"></div>
+                    </div>
+
+                    <div class="setup-section">
+                        <h2 class="game-instruction">Select a Category</h2>
+                        <div id="category-options" class="button-group">
+                            <button class="spy-btn category-btn" data-category="countries">🌎 Countries</button>
+                            <button class="spy-btn category-btn" data-category="celebrities">🌟 Celebrities</button>
+                            <button class="spy-btn category-btn" data-category="brands">🛍️ Brands</button>
+                            <button class="spy-btn category-btn" data-category="shows">📺 TV Shows</button>
+                            <button class="spy-btn category-btn" data-category="animals">🦁 Animals</button>
+                        </div>
+                    </div>
+
+                    <button id="confirm-setup" class="spy-btn">Start Game</button>
+                    <button id="how-to-btn" class="spy-btn">How to Play?</button>
+                </div>
+            </div>
+
+            <!-- How to Play Explanation -->
+            <div id="how-to-section" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">How to Play</h2>
+                    <p class="game-instruction">Each player gets a role. One player is the SPY and doesn't know the secret word. Everyone else must talk subtly about the word. Try to catch the SPY before they figure it out!</p>
+                    <button id="close-how-to" class="spy-btn">Got it!</button>
+                </div>
+            </div>
+
+            <!-- Reveal Screen -->
+            <div id="reveal-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <button id="reveal-btn" class="spy-btn">Reveal Role</button>
+                    <div id="reveal-result" style="display: none;">
+                        <h2 id="role-display" class="game-title"></h2>
+                        <img id="role-icon" src="" alt="Role Icon" class="role-icon" />
+                        <button id="next-player-btn" class="spy-btn">Next Player</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Game Screen -->
+            <div id="end-screen" style="display: none;">
+                <div class="game-content-wrapper">
+                    <h2 class="game-title">Game Ready!</h2>
+                    <p class="game-instruction">All roles have been revealed - good luck!</p>
+                    <button id="reset-btn" class="spy-btn">Play Again</button>
+                </div>
+            </div>
+
+            <!-- Home Icon -->
+            <img src="assets/home_icon.png" id="home-icon" alt="Home" style="position: fixed; bottom: 20px; left: 20px; width: 40px; cursor: pointer; display: none;" />
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Logo Section -->
+                <div class="footer-section">
+                    <a href="#" class="footer-logo">
+                        <img src="assets/index/icon_white_background.png" alt="Dinner Party Games.social Logo">
+                    </a>
+                </div>
+                
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Game Rules</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Follow Us Section -->
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Stay Updated Section -->
+                <div class="footer-section">
+                    <h4>Stay Updated</h4>
+                    <ul>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Special Offers</a></li>
+                        <li><a href="#">Game Updates</a></li>
+                        <li><a href="#">Event News</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    &copy; 2024 Dinner Party Games. All rights reserved.
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="spy.js"></script>
+    <script src="Nav.js"></script>
+</body>
+</html>

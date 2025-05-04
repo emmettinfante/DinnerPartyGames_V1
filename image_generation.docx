@@ -1,0 +1,12 @@
+To blend well with your current color theme (#EDF8F0 background), here’s what to aim for in the image:
+
+Target Area	Recommended Look
+Lighting	Soft natural daylight, slightly cool or desaturated tones (not overly warm/yellow)
+Backdrop	Light backgrounds like mint, white, beige, light gray, or natural wood
+Outfits	Neutrals or slightly muted versions of your site accents: sage green, soft yellow, sky blue, coral red (aligned with #00BF63, #FFDE59, #0CC0DF, #FF3131)
+Props/Game	Cards, table, drinks—avoid clutter; keep tabletop bright or lightly colored
+Filter Option	Slight mint-tinted overlay (#EDF8F0 at ~10-20% opacity) for harmony
+
+🧠 Pro Tip: Reduce Saturation or Add a Blur Background
+
+If your photo has a lot of bright red or blue, reduce saturation slightly or use a CSS backdrop-filter: blur(6px) + a tinted overlay to stay minimalist.
